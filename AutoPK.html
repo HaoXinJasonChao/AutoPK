@@ -11,10 +11,10 @@
     <h1>Auto PK</h1>
     <p>自动波段制战斗计算器</p>
 
-    <button class="tablink" onclick="openPage('combat', this)" id="defaultTab">战斗</button>
-    <button class="tablink" onclick="openPage('result', this)">战斗结果</button>
-    <button class="tablink" onclick="openPage('addData', this)">添加数据</button>
-    <button class="tablink" onclick="openPage('editSearchData', this)">搜索/修改数据</button>
+    <button class="tablink" onclick="openPage('combat')" id="defaultTab">战斗</button>
+    <button class="tablink" onclick="openPage('result')">战斗结果</button>
+    <button class="tablink" onclick="openPage('addData')">添加数据</button>
+    <button class="tablink" onclick="openPage('editSearchData')">搜索/修改数据</button>
 
     <div class="tabcontent" id="combat">
         <div class="splitBox">
@@ -316,8 +316,12 @@
         <div class="centerFlex">
             <button id="calculateCombat">计算PK</button>
         </div>
+    </div>
 
-
+    <div class="tabcontent" id="result">
+        <div class="centerFlex">
+            Combat result
+        </div>
     </div>
 
     <div class="tabcontent" id="addData">
@@ -553,10 +557,6 @@
                 <input type="submit" value="添加武学">
             </form>
         </div>
-
-
-        <br>
-
         <div class="box">
             <h3>添加心法</h3>
             <form id="addXinfaForm">
@@ -587,6 +587,11 @@
 
     </div>
 
+    <div class="tabcontent" id="editSearchData">
+        <div class="centerFlex">
+            Search or Edit Data
+        </div>
+    </div>
 
 
 
