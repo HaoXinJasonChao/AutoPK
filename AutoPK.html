@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Library</title>
+    <title>AutoPK</title>
     <link rel="stylesheet" type="text/css" href="AutoPK.css">
 </head>
 
@@ -11,42 +11,362 @@
     <h1>Auto PK</h1>
     <p>自动波段制战斗计算器</p>
 
-    <h2>添加角色</h2>
-    <form id='characterAddForm'>
-        <input id='newCharacterName' type="text" placeholder="角色名">
-        <input id='newCharacterUpperBand' type="text" placeholder="波段上限">
-        <input id='newCharacterLowerBand' type="text" placeholder="波段下限">
-        <input id='newCharacterPower' type="text" placeholder="功力">
-        <input id='newCharacterBandBonus' type="text" placeholder="附加波段">
-        <input id='newCharacterDMGBonus' type="text" placeholder="附加伤害">
-        <input id='newCharacterDMGReduction' type="text" placeholder="减伤">
-        <input id='newCharacterCritChance' type="text" placeholder="会心几率">
-        <input id='newCharacterCritMultiplier' type="text" placeholder="会心伤害（倍数）">
-        <input id='newCharacterDodgeChance' type="text" placeholder="闪避率">
-        <input type="submit" value="添加角色">
-    </form>
-    <br>
-    <h2>角色装备武器</h2>
-    <form id="characterEquipWeapon">
-        <input id='characterToEquipWeapon' type="text" placeholder="角色名">
-        <input id='equipWeaponName' type="text" placeholder="武器名">
-        <input type="submit" value="装备武器">
-    </form>
+    <button class="tablink" onclick="openPage('combat', this)" id="defaultTab">战斗</button>
+    <button class="tablink" onclick="openPage('result', this)">战斗结果</button>
+    <button class="tablink" onclick="openPage('addData', this)">添加数据</button>
+    <button class="tablink" onclick="openPage('editSearchData', this)">搜索/修改数据</button>
 
-    <h2>角色学习武学</h2>
-    <form id="characterLearnSkill">
-        <input id='characterToLearnSkill' type="text" placeholder="角色名">
-        <input id='learnSkillName' type="text" placeholder="武学名">
-        <input type="submit" value="学习武学">
-    </form>
+    <div class="tabcontent" id="combat">
+        <div class="splitBox">
+            <div class="splitBoxLeft">
+                <form id="p1NameInput">
+                    <label for="p1name">PK角色1：</label>
+                    <input type="text" name="p1name" placeholder="角色名">
+                    <input type="submit" value="读取角色1信息">
+                </form>
+                <br>
+                <table id='p1Stat'>
+                    <tbody>
+                        <tr>
+                            <th>角色名</th>
+                            <th id="p1Name"></th>
+                        </tr>
+                        <tr>
+                            <th>波段上限</th>
+                            <th id="p1UpperBand"></th>
+                        </tr>
+                        <tr>
+                            <th>波段下限</th>
+                            <th id="p1LowerBand"></th>
+                        </tr>
+                        <tr>
+                            <th>功力</th>
+                            <th id="p1Power"></th>
+                        </tr>
+                        <tr>
+                            <th>附加波段</th>
+                            <th id="p1BonusBand"></th>
+                        </tr>
+                        <tr>
+                            <th>附加伤害</th>
+                            <th id="p1BonusDamage"></th>
+                        </tr>
+                        <tr>
+                            <th>减伤</th>
+                            <th id="p1DamageReduction"></th>
+                        </tr>
+                        <tr>
+                            <th>会心几率</th>
+                            <th id="p1CritChance"></th>
+                        </tr>
+                        <tr>
+                            <th>会心伤害（倍数）</th>
+                            <th id="p1CritMultiplier"></th>
+                        </tr>
+                        <tr>
+                            <th>闪避率</th>
+                            <th id="p1DodgeChance"></th>
+                        </tr>
+                        <tr>
+                            <th>装备武器</th>
+                            <th id="p1Weapon"></th>
+                        </tr>
+                        <!-- <tr>
+                            <th>
+                                心法
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学1
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学2
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学3
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学4
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学5
+                            </th>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <br> 读取角色信息后在下方选择各回合招式与心法搭配。
+                <table id="p1moveTable">
+                    <thead>
+                        <tr>
+                            <th>回合</th>
+                            <th>招式选择</th>
+                            <th>心法选择</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第一回合</td>
+                            <td><select name="p1move1" id="p1move1"></select></td>
+                            <td><select name="p1xinfa1" id="p1xinfa1"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第二回合</td>
+                            <td><select name="p1move2" id="p1move2"></select></td>
+                            <td><select name="p1xinfa2" id="p1xinfa2"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第三回合</td>
+                            <td><select name="p1move3" id="p1move3"></select></td>
+                            <td><select name="p1xinfa3" id="p1xinfa3"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第四回合</td>
+                            <td><select name="p1move4" id="p1move4"></select></td>
+                            <td><select name="p1xinfa4" id="p1xinfa4"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第五回合</td>
+                            <td><select name="p1move5" id="p1move5"></select></td>
+                            <td><select name="p1xinfa5" id="p1xinfa5"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第六回合</td>
+                            <td><select name="p1move6" id="p1move6"></select></td>
+                            <td><select name="p1xinfa6" id="p1xinfa6"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第七回合</td>
+                            <td><select name="p1move7" id="p1move7"></select></td>
+                            <td><select name="p1xinfa7" id="p1xinfa7"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第八回合</td>
+                            <td><select name="p1move8" id="p1move8"></select></td>
+                            <td><select name="p1xinfa8" id="p1xinfa8"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第九回合</td>
+                            <td><select name="p1move9" id="p1move9"></select></td>
+                            <td><select name="p1xinfa9" id="p1xinfa9"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第十回合</td>
+                            <td><select name="p1move10" id="p1move10"></select></td>
+                            <td><select name="p1xinfa10" id="p1xinfa10"></select></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="splitBoxRight">
+                <form id="p2NameInput">
+                    <label for="p2name">PK角色2：</label>
+                    <input type="text" name="p2name" placeholder="角色名">
+                    <input type="submit" value="读取角色2信息">
+                </form>
+                <br>
+                <table id='p2Stat'>
+                    <tbody>
+                        <tr>
+                            <th>角色名</th>
+                            <th id="p2Name"></th>
+                        </tr>
+                        <tr>
+                            <th>波段上限</th>
+                            <th id="p2UpperBand"></th>
+                        </tr>
+                        <tr>
+                            <th>波段下限</th>
+                            <th id="p2LowerBand"></th>
+                        </tr>
+                        <tr>
+                            <th>功力</th>
+                            <th id="p2Power"></th>
+                        </tr>
+                        <tr>
+                            <th>附加波段</th>
+                            <th id="p2BonusBand"></th>
+                        </tr>
+                        <tr>
+                            <th>附加伤害</th>
+                            <th id="p2BonusDamage"></th>
+                        </tr>
+                        <tr>
+                            <th>减伤</th>
+                            <th id="p2DamageReduction"></th>
+                        </tr>
+                        <tr>
+                            <th>会心几率</th>
+                            <th id="p2CritChance"></th>
+                        </tr>
+                        <tr>
+                            <th>会心伤害（倍数）</th>
+                            <th id="p2CritMultiplier"></th>
+                        </tr>
+                        <tr>
+                            <th>闪避率</th>
+                            <th id="p2DodgeChance"></th>
+                        </tr>
+                        <tr>
+                            <th>装备武器</th>
+                            <th id="p2Weapon"></th>
+                        </tr>
+                        <!-- <tr>
+                            <th>心法</th>
+                            <th id="p2Xinfa"></th>
+                        </tr>
+                        <tr>
+                            <th>武学1</th>
+                            <th id="p"></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学2
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学3
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学4
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                武学5
+                            </th>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <br> 读取角色信息后在下方选择各回合招式与心法搭配。
+                <table id="p2moveTable">
+                    <thead>
+                        <tr>
+                            <th>回合</th>
+                            <th>招式选择</th>
+                            <th>心法选择</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第一回合</td>
+                            <td><select name="p2move1" id="p2move1"></select></td>
+                            <td><select name="p2xinfa1" id="p2xinfa1"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第二回合</td>
+                            <td><select name="p2move2" id="p2move2"></select></td>
+                            <td><select name="p2xinfa2" id="p2xinfa2"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第三回合</td>
+                            <td><select name="p2move3" id="p2move3"></select></td>
+                            <td><select name="p2xinfa3" id="p2xinfa3"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第四回合</td>
+                            <td><select name="p2move4" id="p2move4"></select></td>
+                            <td><select name="p2xinfa4" id="p2xinfa4"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第五回合</td>
+                            <td><select name="p2move5" id="p2move5"></select></td>
+                            <td><select name="p2xinfa5" id="p2xinfa5"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第六回合</td>
+                            <td><select name="p2move6" id="p2move6"></select></td>
+                            <td><select name="p2xinfa6" id="p2xinfa6"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第七回合</td>
+                            <td><select name="p2move7" id="p2move7"></select></td>
+                            <td><select name="p2xinfa7" id="p2xinfa7"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第八回合</td>
+                            <td><select name="p2move8" id="p2move8"></select></td>
+                            <td><select name="p2xinfa8" id="p2xinfa8"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第九回合</td>
+                            <td><select name="p2move9" id="p2move9"></select></td>
+                            <td><select name="p2xinfa9" id="p2xinfa9"></select></td>
+                        </tr>
+                        <tr>
+                            <td>第十回合</td>
+                            <td><select name="p2move10" id="p2move10"></select></td>
+                            <td><select name="p2xinfa10" id="p2xinfa10"></select></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="centerFlex">
+            <button id="calculateCombat">计算PK</button>
+        </div>
 
-    <h2>角色学习心法</h2>
-    <form id="characterLearnXinfa">
-        <input id='characterToLearnXinfa' type="text" placeholder="角色名">
-        <input id='learnXinfaName' type="text" placeholder="心法名">
-        <input type="submit" value="学习心法">
-    </form>
-    <!-- <h2>搜索角色</h2>
+
+    </div>
+
+    <div class="tabcontent" id="addData">
+        <div class="box">
+            <h2>添加角色</h2>
+            <form id='characterAddForm'>
+                <input id='newCharacterName' type="text" placeholder="角色名">
+                <input id='newCharacterUpperBand' type="text" placeholder="波段上限">
+                <input id='newCharacterLowerBand' type="text" placeholder="波段下限">
+                <input id='newCharacterPower' type="text" placeholder="功力">
+                <input id='newCharacterBandBonus' type="text" placeholder="附加波段">
+                <input id='newCharacterDMGBonus' type="text" placeholder="附加伤害">
+                <input id='newCharacterDMGReduction' type="text" placeholder="减伤">
+                <input id='newCharacterCritChance' type="text" placeholder="会心几率">
+                <input id='newCharacterCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                <input id='newCharacterDodgeChance' type="text" placeholder="闪避率">
+                <input type="submit" value="添加角色">
+            </form>
+        </div>
+
+        <br>
+        <div class="box">
+            <h2>角色装备武器</h2>
+            <form id="characterEquipWeapon">
+                <input id='characterToEquipWeapon' type="text" placeholder="角色名">
+                <input id='equipWeaponName' type="text" placeholder="武器名">
+                <input type="submit" value="装备武器">
+            </form>
+        </div>
+
+        <div class="box">
+            <h2>角色学习武学</h2>
+            <form id="characterLearnSkill">
+                <input id='characterToLearnSkill' type="text" placeholder="角色名">
+                <input id='learnSkillName' type="text" placeholder="武学名">
+                <input type="submit" value="学习武学">
+            </form>
+        </div>
+
+        <div class="box">
+            <h2>角色学习心法</h2>
+            <form id="characterLearnXinfa">
+                <input id='characterToLearnXinfa' type="text" placeholder="角色名">
+                <input id='learnXinfaName' type="text" placeholder="心法名">
+                <input type="submit" value="学习心法">
+            </form>
+        </div>
+
+        <!-- <h2>搜索角色</h2>
     <form id='playerInfoForm'>
         <input id='playerInfoName' type="text" placeholder="角色名">
         <input type="submit" value="搜索角色属性">
@@ -142,120 +462,131 @@
         </tbody>
     </table> -->
 
-    <br>
-    <h2>武器/武学/心法</h2>
+        <br>
+        <h2>武器/武学/心法</h2>
 
-    <h3>添加武器</h3>
-    <form id='addWeaponForm'>
-        <input id='weaponName' type="text" placeholder="武器名">
-        <h4>自身效果</h4>
-        <input id='weaponUpperBand' type="text" placeholder="波段上限">
-        <input id='weaponLowerBand' type="text" placeholder="波段下限">
-        <input id='weaponDMGBonus' type="text" placeholder="伤害">
-        <input id='weaponDMGReduction' type="text" placeholder="减伤">
-        <input id='weaponPowerBonus' type="text" placeholder="功力">
-        <input id='weaponCritChance' type="text" placeholder="会心几率">
-        <input id='weaponCritMultiplier' type="text" placeholder="会心伤害（倍数）">
-        <input id='weaponDodgeChance' type="text" placeholder="闪避率">
-        <h4>敌人效果</h4>
-        <input id='weaponNegativeUpperBand' type="text" placeholder="减对方波段上限">
-        <input id='weaponNegativeLowerBand' type="text" placeholder="减对方波段下限">
-        <input id='weaponNegativeDMGBonus' type="text" placeholder="减对方伤害">
-        <input id='weaponNegativeDMGReduction' type="text" placeholder="减对方减伤">
-        <input id='weaponNegativePowerBonus' type="text" placeholder="减对方功力">
-        <input id='weaponNegativeCritChance' type="text" placeholder="减对方会心几率">
-        <input id='weaponNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
-        <input id='weaponNegativeDodgeChance' type="text" placeholder="减对方闪避率">
-        <br>
-        <input type="submit" value="添加武器">
-    </form>
+        <div class="box">
+            <h3>添加武器</h3>
+            <form id='addWeaponForm'>
+                <input id='weaponName' type="text" placeholder="武器名">
+                <h4>自身效果</h4>
+                <input id='weaponUpperBand' type="text" placeholder="波段上限">
+                <input id='weaponLowerBand' type="text" placeholder="波段下限">
+                <input id='weaponDMGBonus' type="text" placeholder="伤害">
+                <input id='weaponDMGReduction' type="text" placeholder="减伤">
+                <input id='weaponPowerBonus' type="text" placeholder="功力">
+                <input id='weaponCritChance' type="text" placeholder="会心几率">
+                <input id='weaponCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                <input id='weaponDodgeChance' type="text" placeholder="闪避率">
+                <h4>敌人效果</h4>
+                <input id='weaponNegativeUpperBand' type="text" placeholder="减对方波段上限">
+                <input id='weaponNegativeLowerBand' type="text" placeholder="减对方波段下限">
+                <input id='weaponNegativeDMGBonus' type="text" placeholder="减对方伤害">
+                <input id='weaponNegativeDMGReduction' type="text" placeholder="减对方减伤">
+                <input id='weaponNegativePowerBonus' type="text" placeholder="减对方功力">
+                <input id='weaponNegativeCritChance' type="text" placeholder="减对方会心几率">
+                <input id='weaponNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
+                <input id='weaponNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+                <br>
+                <input type="submit" value="添加武器">
+            </form>
+        </div>
 
-    <h3>添加武学</h3>
-    <form id='addSkillForm'>
-        <input id='skillName' type="text" placeholder="武学名">
-        <h4>本回合自身效果</h4>
-        <input id='skillUpperBand' type="text" placeholder="波段上限">
-        <input id='skillLowerBand' type="text" placeholder="波段下限">
-        <input id='skillDMGBonus' type="text" placeholder="伤害">
-        <input id='skillDMGReduction' type="text" placeholder="减伤">
-        <input id='skillPowerBonus' type="text" placeholder="功力">
-        <input id='skillCritChance' type="text" placeholder="会心几率">
-        <input id='skillCritMultiplier' type="text" placeholder="会心伤害（倍数）">
-        <input id='skillDodgeChance' type="text" placeholder="闪避率">
-        <h4>本回合敌人效果</h4>
-        <input id='skillNegativeUpperBand' type="text" placeholder="减对方波段上限">
-        <input id='skillNegativeLowerBand' type="text" placeholder="减对方波段下限">
-        <input id='skillNegativeDMGBonus' type="text" placeholder="减对方伤害">
-        <input id='skillNegativeDMGReduction' type="text" placeholder="减对方减伤">
-        <input id='skillNegativePowerBonus' type="text" placeholder="减对方功力">
-        <input id='skillNegativeCritChance' type="text" placeholder="减对方会心几率">
-        <input id='skillNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
-        <input id='skillNegativeDodgeChance' type="text" placeholder="减对方闪避率">
-        <h4>下回合自身效果</h4>
-        <input id='skillUpperBandNextRound' type="text" placeholder="波段上限">
-        <input id='skillLowerBandNextRound' type="text" placeholder="波段下限">
-        <input id='skillDMGBonusNextRound' type="text" placeholder="伤害">
-        <input id='skillDMGReductionNextRound' type="text" placeholder="减伤">
-        <input id='skillPowerBonusNextRound' type="text" placeholder="功力">
-        <input id='skillCritChanceNextRound' type="text" placeholder="会心几率">
-        <input id='skillCritMultiplierNextRound' type="text" placeholder="会心伤害（倍数）">
-        <input id='skillDodgeChanceNextRound' type="text" placeholder="闪避率">
-        <h4>若本回合命中，下回合敌人效果</h4>
-        <input id='skillNegativeUpperBandNextRound' type="text" placeholder="减对方波段上限">
-        <input id='skillNegativeLowerBandNextRound' type="text" placeholder="减对方波段下限">
-        <input id='skillNegativeDMGBonusNextRound' type="text" placeholder="减对方伤害">
-        <input id='skillNegativeDMGReductionNextRound' type="text" placeholder="减对方减伤">
-        <input id='skillNegativePowerBonusNextRound' type="text" placeholder="减对方功力">
-        <input id='skillNegativeCritChanceNextRound' type="text" placeholder="减对方会心几率">
-        <input id='skillNegativeCritMultiplierNextRound' type="text" placeholder="减对方会心伤害（倍数）">
-        <input id='skillNegativeDodgeChanceNextRound' type="text" placeholder="减对方闪避率">
-        <h4>若本回合命中，敌人持续效果</h4>
-        <input id='skillNegativeUpperBandPerma' type="text" placeholder="减对方波段上限">
-        <input id='skillNegativeLowerBandPerma' type="text" placeholder="减对方波段下限">
-        <input id='skillNegativeDMGBonusPerma' type="text" placeholder="减对方伤害">
-        <input id='skillNegativeDMGReductionPerma' type="text" placeholder="减对方减伤">
-        <input id='skillNegativePowerBonusPerma' type="text" placeholder="减对方功力">
-        <input id='skillNegativeCritChancePerma' type="text" placeholder="减对方会心几率">
-        <input id='skillNegativeCritMultiplierPerma' type="text" placeholder="减对方会心伤害（倍数）">
-        <input id='skillNegativeDodgeChancePerma' type="text" placeholder="减对方闪避率">
-        <input id='skillNegativeHealthPerma' type="text" placeholder="减对方HP">
-        <h4>特殊攻击模式</h4>
-        <input id='skillLifesteal' type="checkbox"><label for="skillLifesteal">吸血</label>
-        <input id='skillBothDamage' type="checkbox"><label for="skillBothDamage">互伤</label>
-        <input id='skillBothImpact' type="checkbox"><label for="skillBothImpact">互冲</label>
-        <input id='skillReflect' type="checkbox"><label for="skillReflect">反弹</label>
-        <br>
-        <input id='skillReflectPercent' type="text" placeholder="每高一功力反弹比率">
-        <br>
-        <input type="submit" value="添加武学">
-    </form>
+        <div class="box">
+            <h3>添加武学</h3>
+            <form id='addSkillForm'>
+                <input id='skillName' type="text" placeholder="武学名">
+                <h4>本回合自身效果</h4>
+                <input id='skillUpperBand' type="text" placeholder="波段上限">
+                <input id='skillLowerBand' type="text" placeholder="波段下限">
+                <input id='skillDMGBonus' type="text" placeholder="伤害">
+                <input id='skillDMGReduction' type="text" placeholder="减伤">
+                <input id='skillPowerBonus' type="text" placeholder="功力">
+                <input id='skillCritChance' type="text" placeholder="会心几率">
+                <input id='skillCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                <input id='skillDodgeChance' type="text" placeholder="闪避率">
+                <h4>本回合敌人效果</h4>
+                <input id='skillNegativeUpperBand' type="text" placeholder="减对方波段上限">
+                <input id='skillNegativeLowerBand' type="text" placeholder="减对方波段下限">
+                <input id='skillNegativeDMGBonus' type="text" placeholder="减对方伤害">
+                <input id='skillNegativeDMGReduction' type="text" placeholder="减对方减伤">
+                <input id='skillNegativePowerBonus' type="text" placeholder="减对方功力">
+                <input id='skillNegativeCritChance' type="text" placeholder="减对方会心几率">
+                <input id='skillNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
+                <input id='skillNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+                <h4>下回合自身效果</h4>
+                <input id='skillUpperBandNextRound' type="text" placeholder="波段上限">
+                <input id='skillLowerBandNextRound' type="text" placeholder="波段下限">
+                <input id='skillDMGBonusNextRound' type="text" placeholder="伤害">
+                <input id='skillDMGReductionNextRound' type="text" placeholder="减伤">
+                <input id='skillPowerBonusNextRound' type="text" placeholder="功力">
+                <input id='skillCritChanceNextRound' type="text" placeholder="会心几率">
+                <input id='skillCritMultiplierNextRound' type="text" placeholder="会心伤害（倍数）">
+                <input id='skillDodgeChanceNextRound' type="text" placeholder="闪避率">
+                <h4>若本回合命中，下回合敌人效果</h4>
+                <input id='skillNegativeUpperBandNextRound' type="text" placeholder="减对方波段上限">
+                <input id='skillNegativeLowerBandNextRound' type="text" placeholder="减对方波段下限">
+                <input id='skillNegativeDMGBonusNextRound' type="text" placeholder="减对方伤害">
+                <input id='skillNegativeDMGReductionNextRound' type="text" placeholder="减对方减伤">
+                <input id='skillNegativePowerBonusNextRound' type="text" placeholder="减对方功力">
+                <input id='skillNegativeCritChanceNextRound' type="text" placeholder="减对方会心几率">
+                <input id='skillNegativeCritMultiplierNextRound' type="text" placeholder="减对方会心伤害（倍数）">
+                <input id='skillNegativeDodgeChanceNextRound' type="text" placeholder="减对方闪避率">
+                <h4>若本回合命中，敌人持续效果</h4>
+                <input id='skillNegativeUpperBandPerma' type="text" placeholder="减对方波段上限">
+                <input id='skillNegativeLowerBandPerma' type="text" placeholder="减对方波段下限">
+                <input id='skillNegativeDMGBonusPerma' type="text" placeholder="减对方伤害">
+                <input id='skillNegativeDMGReductionPerma' type="text" placeholder="减对方减伤">
+                <input id='skillNegativePowerBonusPerma' type="text" placeholder="减对方功力">
+                <input id='skillNegativeCritChancePerma' type="text" placeholder="减对方会心几率">
+                <input id='skillNegativeCritMultiplierPerma' type="text" placeholder="减对方会心伤害（倍数）">
+                <input id='skillNegativeDodgeChancePerma' type="text" placeholder="减对方闪避率">
+                <input id='skillNegativeHealthPerma' type="text" placeholder="减对方HP">
+                <h4>特殊攻击模式</h4>
+                <input id='skillLifesteal' type="checkbox"><label for="skillLifesteal">吸血</label>
+                <input id='skillBothDamage' type="checkbox"><label for="skillBothDamage">互伤</label>
+                <input id='skillBothImpact' type="checkbox"><label for="skillBothImpact">互冲</label>
+                <input id='skillReflect' type="checkbox"><label for="skillReflect">反弹</label>
+                <br>
+                <input id='skillReflectPercent' type="text" placeholder="每高一功力反弹比率">
+                <br>
+                <input type="submit" value="添加武学">
+            </form>
+        </div>
 
-    <br>
-    <h3>添加心法</h3>
-    <form id="addXinfaForm">
-        <input id='xinfaName' type="text" placeholder="心法名">
-        <h4>自身效果</h4>
-        <input id='xinfaUpperBand' type="text" placeholder="波段上限">
-        <input id='xinfaLowerBand' type="text" placeholder="波段下限">
-        <input id='xinfaDMGBonus' type="text" placeholder="伤害">
-        <input id='xinfaDMGReduction' type="text" placeholder="减伤">
-        <input id='xinfaPowerBonus' type="text" placeholder="功力">
-        <input id='xinfaCritChance' type="text" placeholder="会心几率">
-        <input id='xinfaCritMultiplier' type="text" placeholder="会心伤害（倍数）">
-        <input id='xinfaDodgeChance' type="text" placeholder="闪避率">
-        <input id='xinfaHeal' type="text" placeholder="回复HP">
-        <h4>作用敌人效果</h4>
-        <input id='xinfaNegativeUpperBand' type="text" placeholder="减对方波段上限">
-        <input id='xinfaNegativeLowerBand' type="text" placeholder="减对方波段下限">
-        <input id='xinfaNegativeDMGBonus' type="text" placeholder="减对方伤害">
-        <input id='xinfaNegativeDMGReduction' type="text" placeholder="减对方减伤">
-        <input id='xinfaNegativePowerBonus' type="text" placeholder="减对方功力">
-        <input id='xinfaNegativeCritChance' type="text" placeholder="减对方会心几率">
-        <input id='xinfaNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
-        <input id='xinfaNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+
         <br>
-        <input type="submit" value="添加心法">
-    </form>
+
+        <div class="box">
+            <h3>添加心法</h3>
+            <form id="addXinfaForm">
+                <input id='xinfaName' type="text" placeholder="心法名">
+                <h4>自身效果</h4>
+                <input id='xinfaUpperBand' type="text" placeholder="波段上限">
+                <input id='xinfaLowerBand' type="text" placeholder="波段下限">
+                <input id='xinfaDMGBonus' type="text" placeholder="伤害">
+                <input id='xinfaDMGReduction' type="text" placeholder="减伤">
+                <input id='xinfaPowerBonus' type="text" placeholder="功力">
+                <input id='xinfaCritChance' type="text" placeholder="会心几率">
+                <input id='xinfaCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                <input id='xinfaDodgeChance' type="text" placeholder="闪避率">
+                <input id='xinfaHeal' type="text" placeholder="回复HP">
+                <h4>作用敌人效果</h4>
+                <input id='xinfaNegativeUpperBand' type="text" placeholder="减对方波段上限">
+                <input id='xinfaNegativeLowerBand' type="text" placeholder="减对方波段下限">
+                <input id='xinfaNegativeDMGBonus' type="text" placeholder="减对方伤害">
+                <input id='xinfaNegativeDMGReduction' type="text" placeholder="减对方减伤">
+                <input id='xinfaNegativePowerBonus' type="text" placeholder="减对方功力">
+                <input id='xinfaNegativeCritChance' type="text" placeholder="减对方会心几率">
+                <input id='xinfaNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
+                <input id='xinfaNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+                <br>
+                <input type="submit" value="添加心法">
+            </form>
+        </div>
+
+    </div>
+
 
 
 

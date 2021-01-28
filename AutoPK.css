@@ -1,52 +1,100 @@
 body {
-	background-color: #dce3ed;
-	margin-left: 20px;
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
+    background-color: #dce3ed;
+    margin-left: 20px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-table, td, th {
-	border-collapse: collapse;
-	border: 1px solid black;
+table,
+td,
+th {
+    border-collapse: collapse;
+    border: 1px solid black;
 }
 
-td, th {
-	min-width: 200px;
+td,
+th {
+    min-width: 200px;
 }
 
 h4 {
-	margin-top: 5px;
-	margin-bottom: 2px;
-}
-
-.patron {
-	border: 1px solid black;
-	padding: 10px;
-	max-width: 1000px;
-	margin-top: 10px;
-}
-
-.patron p {
-	margin: 2px;
+    margin-top: 5px;
+    margin-bottom: 2px;
 }
 
 
-.patron span {
-	font-weight: bold;
+/* Style tab links */
+
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
 }
 
-#bookInfo p {
-	font-weight: bold;
+.tablink:hover {
+    background-color: #777;
 }
 
-#bookInfo span {
-	font-weight: normal;
-	color: black;
+
+/* Style the tab content (and add height:100% for full page content) */
+
+.tabcontent {
+    color: black;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
 }
 
-.green {
-	color: green;
+.box {
+    border-style: solid;
+    padding-left: 5px;
+    padding-bottom: 5px;
 }
 
-.red {
-	color: red;
+.splitBox {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.splitBoxLeft {
+    flex: 0 0 50%;
+    height: 100%;
+}
+
+.splitBoxRight {
+    flex: 1;
+    height: 100%;
+}
+
+.centerFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+button#calculateCombat {
+    background-color: black;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.5s;
+    border-radius: 10%;
+}
+
+button#calculateCombat:hover {
+    background-color: grey;
+    /* Green */
+    color: black;
 }
