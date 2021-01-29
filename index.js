@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + "/pub"));
 
 app.get('/', (req, res) => {
-    res.send('root route');
+    res.redirect('AutoPK.html');
 });
 
 
