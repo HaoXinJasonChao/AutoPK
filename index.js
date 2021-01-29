@@ -58,7 +58,7 @@ app.get('/helloworld!', (req, res) => {
     res.status(200).send({ 'message': 'hello world!' });
 });
 
-// Set up the routes for the '/css', '/images/, and '/js' static directories
+// Set up the routes for the '/css', and '/js' static directories
 app.use("/css", express.static(path.join(__dirname, '/public/css')));
 app.use("/js", express.static(path.join(__dirname, '/public/js')));
 
