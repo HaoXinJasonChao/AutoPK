@@ -128,6 +128,6 @@ const XinfaEnemyEffectSchema = new mongoose.Schema({
     }
 });
 
-const Weapon = mongoose.model("Weapon", WeaponSchema);
+const Xinfa = mongoose.model("Xinfa", XinfaSchema);
 
-module.exports = { Weapon };
+module.exports = { Xinfa };
