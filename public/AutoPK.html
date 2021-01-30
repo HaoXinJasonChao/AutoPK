@@ -473,7 +473,7 @@
 
         <br>
         <h2>武器/武学/心法</h2>
-
+        名字必填，不可重复。
         <div class="box">
             <h3>添加武器</h3>
             <form id='addWeaponForm'>
@@ -606,8 +606,143 @@
     </div>
 
     <div class="tabcontent" id="editSearchData">
-        <div class="centerFlex">
-            Search or Edit Data
+        <div>
+            <div class="box">
+                <h2>搜索角色</h2>
+                <form id="searchCharacterForm">
+                    <input id="searchCharacterName" type="text" placeholder="角色名">
+                    <input type="submit" value="搜索角色">
+                </form>
+                搜索后可以在下面的表格进行编辑。
+                <h2>编辑角色</h2>
+                <form id='editCharacterForm'>
+                    <input id='editCharacterName' type="text" placeholder="角色名">
+                    <input id='editCharacterUpperBand' type="text" placeholder="波段上限">
+                    <input id='editCharacterLowerBand' type="text" placeholder="波段下限">
+                    <input id='editCharacterPower' type="text" placeholder="功力">
+                    <input id='editCharacterBandBonus' type="text" placeholder="附加波段">
+                    <input id='editCharacterDMGBonus' type="text" placeholder="附加伤害">
+                    <input id='editCharacterDMGReduction' type="text" placeholder="减伤">
+                    <input id='editCharacterCritChance' type="text" placeholder="会心几率">
+                    <input id='editCharacterCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                    <input id='editCharacterDodgeChance' type="text" placeholder="闪避率">
+                    <input type="submit" value="编辑角色">
+                </form>
+            </div>
+            <br>
+            <div class="box">
+                <h2>搜索武器</h2>
+                <form id="searchWeaponForm">
+                    <input id="searchWeaponName" type="text" placeholder="武器名">
+                    <input type="submit" value="搜索武器">
+                </form>
+                搜索后可以在下面的表格进行编辑。
+                <h2>编辑武器</h2>
+                <form id='editWeaponForm'>
+                    <input id='editWeaponName' type="text" placeholder="武器名">
+                    <h4>自身效果</h4>
+                    <input id='editWeaponUpperBand' type="text" placeholder="波段上限">
+                    <input id='editWeaponLowerBand' type="text" placeholder="波段下限">
+                    <input id='editWeaponDMGBonus' type="text" placeholder="伤害">
+                    <input id='editWeaponDMGReduction' type="text" placeholder="减伤">
+                    <input id='editWeaponPowerBonus' type="text" placeholder="功力">
+                    <input id='editWeaponCritChance' type="text" placeholder="会心几率">
+                    <input id='editWeaponCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                    <input id='editWeaponDodgeChance' type="text" placeholder="闪避率">
+                    <label for="editWeaponLifeSteal">吸血</label>
+                    <input type="checkbox" name="editWeaponLifeSteal" id="editWeaponLifeSteal">
+                    <input id="editWeaponLifeStealPercent" type="text" placeholder="吸血比例">
+                    <h4>敌人效果</h4>
+                    <input id='editWeaponNegativeUpperBand' type="text" placeholder="减对方波段上限">
+                    <input id='editWeaponNegativeLowerBand' type="text" placeholder="减对方波段下限">
+                    <input id='editWeaponNegativeDMGBonus' type="text" placeholder="减对方伤害">
+                    <input id='editWeaponNegativeDMGReduction' type="text" placeholder="减对方减伤">
+                    <input id='editWeaponNegativePowerBonus' type="text" placeholder="减对方功力">
+                    <input id='editWeaponNegativeCritChance' type="text" placeholder="减对方会心几率">
+                    <input id='editWeaponNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
+                    <input id='editWeaponNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+                    <br>
+                    <input type="submit" value="编辑武器">
+                </form>
+            </div>
+            <br>
+            <div class="box">
+                <h2>搜索武学</h2>
+                <form id="searchWeaponForm">
+                    <input id="searchWeaponName" type="text" placeholder="武学名">
+                    <input type="submit" value="搜索武学">
+                </form>
+                搜索后可以在下面的表格进行编辑。
+                <h2>编辑武学</h2>
+                <form id='editSkillForm'>
+                    <input id='editSkillName' type="text" placeholder="武学名">
+                    <h4>本回合自身效果</h4>
+                    <input id='editSkillUpperBand' type="text" placeholder="波段上限">
+                    <input id='editSkillLowerBand' type="text" placeholder="波段下限">
+                    <input id='editSkillDMGBonus' type="text" placeholder="附加伤害">
+                    <input id='editSkillDMGReduction' type="text" placeholder="减伤">
+                    <input id='editSkillPowerBonus' type="text" placeholder="功力">
+                    <input id='editSkillCritChance' type="text" placeholder="会心几率">
+                    <input id='editSkillCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                    <input id='editSkillDodgeChance' type="text" placeholder="闪避率">
+                    <input id="editSkillHealing" type="text" placeholder="回复HP">
+                    <!-- <label for="skillBlockSelfSkill">封技</label><input type="checkbox" name="skillBlockSelfSkill" id="skillBlockSelfSkill"> -->
+                    <input id="editSkillBlockSelfSkillChance" type="text" placeholder="封技几率">
+                    <h4>本回合敌人效果</h4>
+                    <input id='editSkillNegativeUpperBand' type="text" placeholder="减对方波段上限">
+                    <input id='editSkillNegativeLowerBand' type="text" placeholder="减对方波段下限">
+                    <input id='editSkillNegativeDMGBonus' type="text" placeholder="减对方附加伤害">
+                    <input id='editSkillNegativeDMGReduction' type="text" placeholder="减对方减伤">
+                    <input id='editSkillNegativePowerBonus' type="text" placeholder="减对方功力">
+                    <input id='editSkillNegativeCritChance' type="text" placeholder="减对方会心几率">
+                    <input id='editSkillNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
+                    <input id='editSkillNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+                    <input id="editSkillNegativeHealing" type="text" placeholder="减对方HP">
+                    <input id="editSkillBlockEnemySkillChance" type="text" placeholder="封技几率">
+                    <h4>下回合自身效果</h4>
+                    <input id='editSkillUpperBandNextRound' type="text" placeholder="波段上限">
+                    <input id='editSkillLowerBandNextRound' type="text" placeholder="波段下限">
+                    <input id='editSkillDMGBonusNextRound' type="text" placeholder="附加伤害">
+                    <input id='editSkillDMGReductionNextRound' type="text" placeholder="减伤">
+                    <input id='editSkillPowerBonusNextRound' type="text" placeholder="功力">
+                    <input id='editSkillCritChanceNextRound' type="text" placeholder="会心几率">
+                    <input id='editSkillCritMultiplierNextRound' type="text" placeholder="会心伤害（倍数）">
+                    <input id='editSkillDodgeChanceNextRound' type="text" placeholder="闪避率">
+                    <input id="editSkillHealingNextRound" type="text" placeholder="回复HP">
+                    <input id="editSkillBlockSelfSkillChanceNextRound" type="text" placeholder="封技几率">
+                    <h4>若本回合命中，下回合敌人效果</h4>
+                    <input id='editSkillNegativeUpperBandNextRound' type="text" placeholder="减对方波段上限">
+                    <input id='editSkillNegativeLowerBandNextRound' type="text" placeholder="减对方波段下限">
+                    <input id='editSkillNegativeDMGBonusNextRound' type="text" placeholder="减对方附加伤害">
+                    <input id='editSkillNegativeDMGReductionNextRound' type="text" placeholder="减对方减伤">
+                    <input id='editSkillNegativePowerBonusNextRound' type="text" placeholder="减对方功力">
+                    <input id='editSkillNegativeCritChanceNextRound' type="text" placeholder="减对方会心几率">
+                    <input id='editSkillNegativeCritMultiplierNextRound' type="text" placeholder="减对方会心伤害（倍数）">
+                    <input id='editSkillNegativeDodgeChanceNextRound' type="text" placeholder="减对方闪避率">
+                    <input id="editSkillNegativeHealingNextRound" type="text" placeholder="减对方HP">
+                    <input id="editSkillBlockEnemySkillChanceNextRound" type="text" placeholder="封技几率">
+                    <h4>若本回合命中，敌人持续效果</h4>
+                    <input id='editSkillNegativeUpperBandPerma' type="text" placeholder="减对方波段上限">
+                    <input id='editSkillNegativeLowerBandPerma' type="text" placeholder="减对方波段下限">
+                    <input id='editSkillNegativeDMGBonusPerma' type="text" placeholder="减对方附加伤害">
+                    <input id='editSkillNegativeDMGReductionPerma' type="text" placeholder="减对方减伤">
+                    <input id='editSkillNegativePowerBonusPerma' type="text" placeholder="减对方功力">
+                    <input id='editSkillNegativeCritChancePerma' type="text" placeholder="减对方会心几率">
+                    <input id='editSkillNegativeCritMultiplierPerma' type="text" placeholder="减对方会心伤害（倍数）">
+                    <input id='editSkillNegativeDodgeChancePerma' type="text" placeholder="减对方闪避率">
+                    <input id='editSkillNegativeHealingPerma' type="text" placeholder="减对方HP">
+                    <input id="editSkillBlockEnemySkillChancePerma" type="text" placeholder="封技几率">
+                    <h4>特殊攻击模式</h4>
+                    <label for="editSkillLifesteal">吸血</label><input id='editSkillLifesteal' type="checkbox">
+                    <input id="editSkillLifestealPercent" type="text" placeholder="吸血比例">
+                    <label for="editSkillBothDamage">互伤</label><input id='editSkillBothDamage' type="checkbox">
+                    <label for="editSkillBothImpact">互冲</label><input id='editSkillBothImpact' type="checkbox">
+                    <label for="editSkillReflect">反弹</label><input id='editSkillReflect' type="checkbox">
+                    <input id='editSkillReflectPercent' type="text" placeholder="每高一功力反弹比率">
+                    <br>
+                    <input type="submit" value="编辑武学">
+                </form>
+            </div>
         </div>
     </div>
 
