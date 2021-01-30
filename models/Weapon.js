@@ -48,6 +48,18 @@ const WeaponSelfEffectSchema = new mongoose.Schema({
         required: false,
         unique: false,
         trim: true
+    },
+    "吸血": {
+        type: Boolean,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "吸血比例": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
     }
 });
 

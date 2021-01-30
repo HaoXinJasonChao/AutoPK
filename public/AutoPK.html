@@ -484,6 +484,9 @@
                 <input id='weaponCritChance' type="text" placeholder="会心几率">
                 <input id='weaponCritMultiplier' type="text" placeholder="会心伤害（倍数）">
                 <input id='weaponDodgeChance' type="text" placeholder="闪避率">
+                <label for="weaponLifeSteal">吸血</label>
+                <input type="checkbox" name="weaponLifeSteal" id="weaponLifeSteal">
+                <input id="weaponLifeStealPercent" type="text" placeholder="吸血比例">
                 <h4>敌人效果</h4>
                 <input id='weaponNegativeUpperBand' type="text" placeholder="减对方波段上限">
                 <input id='weaponNegativeLowerBand' type="text" placeholder="减对方波段下限">
@@ -505,55 +508,65 @@
                 <h4>本回合自身效果</h4>
                 <input id='skillUpperBand' type="text" placeholder="波段上限">
                 <input id='skillLowerBand' type="text" placeholder="波段下限">
-                <input id='skillDMGBonus' type="text" placeholder="伤害">
+                <input id='skillDMGBonus' type="text" placeholder="附加伤害">
                 <input id='skillDMGReduction' type="text" placeholder="减伤">
                 <input id='skillPowerBonus' type="text" placeholder="功力">
                 <input id='skillCritChance' type="text" placeholder="会心几率">
                 <input id='skillCritMultiplier' type="text" placeholder="会心伤害（倍数）">
                 <input id='skillDodgeChance' type="text" placeholder="闪避率">
+                <input id="skillHealing" type="text" placeholder="回复HP">
+                <!-- <label for="skillBlockSelfSkill">封技</label><input type="checkbox" name="skillBlockSelfSkill" id="skillBlockSelfSkill"> -->
+                <input id="skillBlockSelfSkillChance" type="text" placeholder="封技几率">
                 <h4>本回合敌人效果</h4>
                 <input id='skillNegativeUpperBand' type="text" placeholder="减对方波段上限">
                 <input id='skillNegativeLowerBand' type="text" placeholder="减对方波段下限">
-                <input id='skillNegativeDMGBonus' type="text" placeholder="减对方伤害">
+                <input id='skillNegativeDMGBonus' type="text" placeholder="减对方附加伤害">
                 <input id='skillNegativeDMGReduction' type="text" placeholder="减对方减伤">
                 <input id='skillNegativePowerBonus' type="text" placeholder="减对方功力">
                 <input id='skillNegativeCritChance' type="text" placeholder="减对方会心几率">
                 <input id='skillNegativeCritMultiplier' type="text" placeholder="减对方会心伤害（倍数）">
                 <input id='skillNegativeDodgeChance' type="text" placeholder="减对方闪避率">
+                <input id="skillNegativeHealing" type="text" placeholder="减对方HP">
+                <input id="skillBlockEnemySkillChance" type="text" placeholder="封技几率">
                 <h4>下回合自身效果</h4>
                 <input id='skillUpperBandNextRound' type="text" placeholder="波段上限">
                 <input id='skillLowerBandNextRound' type="text" placeholder="波段下限">
-                <input id='skillDMGBonusNextRound' type="text" placeholder="伤害">
+                <input id='skillDMGBonusNextRound' type="text" placeholder="附加伤害">
                 <input id='skillDMGReductionNextRound' type="text" placeholder="减伤">
                 <input id='skillPowerBonusNextRound' type="text" placeholder="功力">
                 <input id='skillCritChanceNextRound' type="text" placeholder="会心几率">
                 <input id='skillCritMultiplierNextRound' type="text" placeholder="会心伤害（倍数）">
                 <input id='skillDodgeChanceNextRound' type="text" placeholder="闪避率">
+                <input id="skillHealingNextRound" type="text" placeholder="回复HP">
+                <input id="skillBlockSelfSkillChanceNextRound" type="text" placeholder="封技几率">
                 <h4>若本回合命中，下回合敌人效果</h4>
                 <input id='skillNegativeUpperBandNextRound' type="text" placeholder="减对方波段上限">
                 <input id='skillNegativeLowerBandNextRound' type="text" placeholder="减对方波段下限">
-                <input id='skillNegativeDMGBonusNextRound' type="text" placeholder="减对方伤害">
+                <input id='skillNegativeDMGBonusNextRound' type="text" placeholder="减对方附加伤害">
                 <input id='skillNegativeDMGReductionNextRound' type="text" placeholder="减对方减伤">
                 <input id='skillNegativePowerBonusNextRound' type="text" placeholder="减对方功力">
                 <input id='skillNegativeCritChanceNextRound' type="text" placeholder="减对方会心几率">
                 <input id='skillNegativeCritMultiplierNextRound' type="text" placeholder="减对方会心伤害（倍数）">
                 <input id='skillNegativeDodgeChanceNextRound' type="text" placeholder="减对方闪避率">
+                <input id="skillNegativeHealingNextRound" type="text" placeholder="减对方HP">
+                <input id="skillBlockEnemySkillChanceNextRound" type="text" placeholder="封技几率">
                 <h4>若本回合命中，敌人持续效果</h4>
                 <input id='skillNegativeUpperBandPerma' type="text" placeholder="减对方波段上限">
                 <input id='skillNegativeLowerBandPerma' type="text" placeholder="减对方波段下限">
-                <input id='skillNegativeDMGBonusPerma' type="text" placeholder="减对方伤害">
+                <input id='skillNegativeDMGBonusPerma' type="text" placeholder="减对方附加伤害">
                 <input id='skillNegativeDMGReductionPerma' type="text" placeholder="减对方减伤">
                 <input id='skillNegativePowerBonusPerma' type="text" placeholder="减对方功力">
                 <input id='skillNegativeCritChancePerma' type="text" placeholder="减对方会心几率">
                 <input id='skillNegativeCritMultiplierPerma' type="text" placeholder="减对方会心伤害（倍数）">
                 <input id='skillNegativeDodgeChancePerma' type="text" placeholder="减对方闪避率">
-                <input id='skillNegativeHealthPerma' type="text" placeholder="减对方HP">
+                <input id='skillNegativeHealingPerma' type="text" placeholder="减对方HP">
+                <input id="skillBlockEnemySkillChancePerma" type="text" placeholder="封技几率">
                 <h4>特殊攻击模式</h4>
-                <input id='skillLifesteal' type="checkbox"><label for="skillLifesteal">吸血</label>
-                <input id='skillBothDamage' type="checkbox"><label for="skillBothDamage">互伤</label>
-                <input id='skillBothImpact' type="checkbox"><label for="skillBothImpact">互冲</label>
-                <input id='skillReflect' type="checkbox"><label for="skillReflect">反弹</label>
-                <br>
+                <label for="skillLifesteal">吸血</label><input id='skillLifesteal' type="checkbox">
+                <input id="skillLifestealPercent" type="text" placeholder="吸血比例">
+                <label for="skillBothDamage">互伤</label><input id='skillBothDamage' type="checkbox">
+                <label for="skillBothImpact">互冲</label><input id='skillBothImpact' type="checkbox">
+                <label for="skillReflect">反弹</label><input id='skillReflect' type="checkbox">
                 <input id='skillReflectPercent' type="text" placeholder="每高一功力反弹比率">
                 <br>
                 <input type="submit" value="添加武学">

@@ -51,6 +51,18 @@ const WuxueSelfEffectSchema = new mongoose.Schema({
         required: false,
         unique: false,
         trim: true
+    },
+    "回血": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "封技几率": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
     }
 });
 
@@ -98,6 +110,18 @@ const WuxueEnemyEffectSchema = new mongoose.Schema({
         trim: true
     },
     "减对方闪避率": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "减对方HP": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "封技几率": {
         type: Number,
         required: false,
         unique: false,
@@ -153,6 +177,18 @@ const WuxueNextRoundEffectSchema = new mongoose.Schema({
         required: false,
         unique: false,
         trim: true
+    },
+    "回血": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "封技几率": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
     }
 });
 
@@ -200,6 +236,18 @@ const WuxueNextRoundEnemyEffectSchema = new mongoose.Schema({
         trim: true
     },
     "减对方闪避率": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "减对方HP": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "封技几率": {
         type: Number,
         required: false,
         unique: false,
@@ -261,12 +309,24 @@ const WuxuePermaEnemyEffectSchema = new mongoose.Schema({
         required: false,
         unique: false,
         trim: true
+    },
+    "封技几率": {
+        type: Number,
+        required: false,
+        unique: false,
+        trim: true
     }
 });
 
 const WuxueSpecialAttackModeSchema = new mongoose.Schema({
     "吸血": {
         type: Boolean,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "吸血比例": {
+        type: Number,
         required: false,
         unique: false,
         trim: true
@@ -290,7 +350,7 @@ const WuxueSpecialAttackModeSchema = new mongoose.Schema({
         trim: true
     },
     "功力反弹比率": {
-        type: Boolean,
+        type: Number,
         required: false,
         unique: false,
         trim: true
@@ -303,12 +363,12 @@ const WuxueSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
-    "自身效果": {
+    "本回合自身效果": {
         type: WuxueSelfEffectSchema,
         required: true,
         unique: false
     },
-    "敌人效果": {
+    "本回合敌人效果": {
         type: WuxueEnemyEffectSchema,
         required: true,
         unique: false
