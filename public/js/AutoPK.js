@@ -209,6 +209,37 @@ document.getElementById('addSkillForm').addEventListener('submit', function(e) {
     return;
 });
 
+document.getElementById('characterEquipWeapon').addEventListener("submit", function(e) {
+    e.preventDefault();
+    const characterName = getString('characterToEquipWeapon');
+    const weaponName = getString('equipWeaponName');
+    const removeWeapon = getBool('removeWeapon');
+    const 装备 = {
+        '角色名': characterName,
+        '武器名': weaponName,
+        '卸下': removeWeapon
+    }
+    fetchRequest("POST", '/equipWeapon', 装备, (message) => {
+        alert(message.message);
+    });
+});
+
+document.getElementById('characterLearnWuxue').addEventListener("submit", function(e) {
+    e.preventDefault();
+    const characterName = getString('characterToLearnSkill');
+    const skillName = getString('learnSkillName');
+    const forget = getBool('forgetWuxue');
+    const 学习 = {
+        '角色名': characterName,
+        '武学名': skillName,
+        '忘记': forget
+    }
+    fetchRequest("POST", '/learnWuxue', 学习, (message) => {
+        alert(message.message);
+    });
+})
+
+
 function getString(id) {
     return document.getElementById(id).value;
 }

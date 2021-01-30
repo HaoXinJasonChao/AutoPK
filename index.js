@@ -62,7 +62,7 @@ const mongoChecker = (req, res, next) => {
     }
 };
 
-
+// render the webpage
 app.get('/', (req, res) => {
     res.render('AutoPK');
 })
@@ -163,6 +163,7 @@ app.post('/createCharacter', mongoChecker, async(req, res) => {
 });
 
 
+// create a weapon
 app.post('/createWeapon', mongoChecker, async(req, res) => {
     Weapon.findByName(req.body.weaponName).then((weapon) => {
         if (weapon) {
@@ -227,6 +228,7 @@ app.post('/createWeapon', mongoChecker, async(req, res) => {
 
 });
 
+// Create a wuxue
 app.post('/createWuxue', mongoChecker, async(req, res) => {
     Wuxue.findByName(req.body.武学名).then((武学) => {
         if (武学) {
@@ -337,9 +339,101 @@ app.post('/createWuxue', mongoChecker, async(req, res) => {
             }
         }
     });
-
 });
 
+// A character equips/unequips a weapon
+app.post('/equipWeapon', mongoChecker, async(req, res) => {
+    Character.findByName(req.body.角色名).then((角色) => {
+        if (!角色) {
+            res.status(200).send({
+                "message": "角色不存在。"
+            });
+            return;
+        } else {
+            Weapon.findByName(req.body.武器名).then((武器) => {
+                if (!武器) {
+                    res.status(200).send({
+                        "message": "武器不存在。"
+                    });
+                    return;
+                } else {
+                    if (req.body.卸下) {
+                        角色.武器 = "无";
+                    } else {
+                        角色.武器 = req.body.武器名;
+                    }
+                    角色.save().then((保存成功) => {
+                        if (!保存成功) {
+                            res.status(500).send({
+                                "message": "服务器错误，无法装备武器。"
+                            });
+                            return;
+                        } else {
+                            if (req.body.卸下) {
+                                res.status(200).send({ "message": `${req.body.角色名}已卸下武器。` });
+                            } else {
+                                res.status(200).send({ "message": `${req.body.角色名}已装备${req.body.武器名}。` });
+                            }
+
+                        }
+                    })
+                }
+            })
+        }
+    })
+});
+
+// A character learns/forgets a wuxue
+app.post('/learnWuxue', mongoChecker, async(req, res) => {
+    Character.findByName(req.body.角色名).then((角色) => {
+        if (!角色) {
+            res.status(200).send({
+                "message": "角色不存在。"
+            });
+            return;
+        } else {
+            Wuxue.findByName(req.body.武学名).then((武学) => {
+                if (!武学) {
+                    res.status(200).send({
+                        "message": "武学不存在。"
+                    });
+                    return;
+                } else {
+                    if (req.body.忘记) {
+                        if (!角色.武学.includes(req.body.武学名)) {
+                            res.status(200).send({ "message": `${req.body.角色名}不会${req.body.武学名}，无法忘记。` });
+                            return;
+                        } else {
+                            角色.武学 = 角色.武学.filter(wuxue => wuxue !== req.body.武学名);
+                        }
+                    } else {
+                        if (角色.武学.includes(req.body.武学名)) {
+                            res.status(200).send({ "message": `${req.body.角色名}本来就会${req.body.武学名}，无法重复学习。` });
+                            return;
+                        } else {
+                            角色.武学.push(req.body.武学名);
+                        }
+                    }
+                    角色.save().then((保存成功) => {
+                        if (!保存成功) {
+                            res.status(500).send({
+                                "message": "服务器错误，无法装备武器。"
+                            });
+                            return;
+                        } else {
+                            if (req.body.忘记) {
+                                res.status(200).send({ "message": `${req.body.角色名}已忘记${req.body.武学名}。` });
+                            } else {
+                                res.status(200).send({ "message": `${req.body.角色名}已学会${req.body.武学名}。` });
+                            }
+
+                        }
+                    })
+                }
+            })
+        }
+    })
+});
 
 // Set up the routes for the '/css', and '/js' static directories
 app.use("/css", express.static(path.join(__dirname, '/public/css')));
