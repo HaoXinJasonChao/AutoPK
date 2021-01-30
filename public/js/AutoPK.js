@@ -239,22 +239,137 @@ document.getElementById('characterLearnWuxue').addEventListener("submit", functi
     });
 })
 
+document.getElementById('searchCharacterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const characterName = getString('searchCharacterName');
+    fetchRequest('POST', '/searchCharacter', { '角色名': characterName }, (data) => {
+        if (!data.角色) {
+            alert("角色不存在。");
+        } else {
+            const character = data.角色;
+            setValue('editCharacterName', character.角色名);
+            setValue('editCharacterUpperBand', character.波段上限);
+            setValue('editCharacterLowerBand', character.波段下限);
+            setValue('editCharacterPower', character.功力);
+            setValue('editCharacterBandBonus', character.附加波段);
+            setValue('editCharacterDMGBonus', character.附加伤害);
+            setValue('editCharacterDMGReduction', character.减伤);
+            setValue('editCharacterCritChance', character.会心几率);
+            setValue('editCharacterCritMultiplier', character.会心伤害);
+            setValue('editCharacterDodgeChance', character.闪避率);
+            const weaponDiv = document.getElementById('editCharacterWeaponDiv');
+            injectWeaponInput(character.武器, weaponDiv);
+            const wuxueDiv = document.getElementById('editCharacterWuxueDiv');
+            injectWuxueInput(character.武学, wuxueDiv);
+
+        }
+    })
+});
+
+
+document.getElementById('editCharacterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const originalCharacterName = getString('searchCharacterName');
+    const characterName = getString('editCharacterName');
+    if (characterName == "") {
+        alert("角色名空缺");
+        return;
+    }
+    const upperBand = getInt('editCharacterUpperBand');
+    log("upperband" + upperBand);
+    const lowerBand = getInt('editCharacterLowerBand');
+    const power = getInt('editCharacterPower');
+    const bandBonus = getInt('editCharacterBandBonus');
+    const damageBonus = getInt('editCharacterDMGBonus');
+    const damageReduction = getInt('editCharacterDMGReduction');
+    const critChance = getFloat('editCharacterCritChance');
+    const critMultiplier = getFloat('editCharacterCritMultiplier');
+    const dodgeChance = getFloat('editCharacterDodgeChance');
+    const weaponKeep = getBool('editCharacterWeapon');
+    let wuxueKeep = [];
+    const characterWuxue = document.getElementById('editCharacterWuxueDiv');
+    const wuxues = characterWuxue.querySelectorAll('input');
+    wuxues.forEach(wuxue => {
+        wuxueKeep.push(wuxue.checked);
+    });
+
+    const newStat = {
+        "originalCharacterName": originalCharacterName,
+        "characterName": characterName,
+        "upperBand": upperBand,
+        "lowerBand": lowerBand,
+        "power": power,
+        "bonusBand": bandBonus,
+        "bonusDamage": damageBonus,
+        "damageReduction": damageReduction,
+        "critChance": critChance,
+        "critMultiplier": critMultiplier,
+        "dodgeChance": dodgeChance,
+        "weapon": weaponKeep,
+        "wuxue": wuxueKeep
+    };
+
+    fetchRequest("POST", '/editCharacter', newStat, (message) => {
+        alert(message.message);
+    });
+    return;
+});
+
+function setValue(id, value) {
+    document.getElementById(id).value = value;
+}
+
+function setChecked(id, checked) {
+    document.getElementById(id).checked = checked;
+}
 
 function getString(id) {
     return document.getElementById(id).value;
 }
 
 function getInt(id) {
-    return parseInt(document.getElementById(id)) || 0;
+    return parseInt(document.getElementById(id).value) || 0;
 }
 
 function getFloat(id) {
-    return parseFloat(document.getElementById(id)) || 0.0;
+    return parseFloat(document.getElementById(id).value) || 0.0;
 }
 
 function getBool(id) {
     return document.getElementById(id).checked;
 }
+
+function injectWeaponInput(weaponName, div) {
+    div.innerHTML = '';
+    let weaponLabel = document.createElement('label');
+    weaponLabel.setAttribute('for', 'editCharacterWeapon');
+    weaponLabel.innerHTML = weaponName;
+    let weaponInput = document.createElement('input');
+    weaponInput.setAttribute('type', 'checkbox');
+    weaponInput.setAttribute('name', 'editCharacterWeapon');
+    weaponInput.setAttribute('id', 'editCharacterWeapon');
+    weaponInput.checked = true;
+    div.appendChild(weaponLabel);
+    div.appendChild(weaponInput);
+}
+
+function injectWuxueInput(wuxue, div) {
+    div.innerHTML = '';
+    for (let index = 0; index < wuxue.length; index++) {
+        const currWuxue = wuxue[index];
+        let wuxueLabel = document.createElement('label');
+        wuxueLabel.setAttribute('for', 'editCharacterWuxue' + (index + 1));
+        wuxueLabel.innerHTML = currWuxue;
+        let wuxueInput = document.createElement('input');
+        wuxueInput.setAttribute('type', 'checkbox');
+        wuxueInput.setAttribute('name', 'editCharacterWuxue' + (index + 1));
+        wuxueInput.setAttribute('id', 'editCharacterWuxue' + (index + 1));
+        wuxueInput.checked = true;
+        div.appendChild(wuxueLabel);
+        div.appendChild(wuxueInput);
+    }
+}
+
 
 // Helper function to send a request to the server using the fetch() api
 function fetchRequest(requestType, URL, data, callback) {

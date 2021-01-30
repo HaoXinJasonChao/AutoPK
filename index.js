@@ -435,6 +435,85 @@ app.post('/learnWuxue', mongoChecker, async(req, res) => {
     })
 });
 
+// Search for a character
+app.post('/searchCharacter', mongoChecker, async(req, res) => {
+    const 角色名 = req.body.角色名;
+    Character.findByName(角色名).then((角色) => {
+        if (!角色) {
+            res.status(200).send({
+                "角色": false
+            });
+            return;
+        } else {
+            res.status(200).send({
+                "角色": 角色
+            });
+        }
+    });
+});
+
+
+// edit a character
+app.post('/editCharacter', mongoChecker, async(req, res) => {
+    const 原角色名 = req.body.originalCharacterName;
+    Character.findByName(原角色名).then((character) => {
+        if (!character) {
+            res.status(200).send({
+                "message": "角色不存在，可能已被删除或改名，请确认搜索角色名是正确的。"
+            });
+            return;
+        } else {
+            character.角色名 = req.body.characterName;
+            character.波段上限 = req.body.upperBand;
+            character.波段下限 = req.body.lowerBand;
+            character.功力 = req.body.power;
+            character.附加波段 = req.body.bonusBand;
+            character.附加伤害 = req.body.bonusDamage;
+            character.减伤 = req.body.damageReduction;
+            character.会心几率 = req.body.critChance;
+            character.会心伤害 = req.body.critMultiplier;
+            character.闪避率 = req.body.dodgeChance;
+            if (req.body.weapon) {
+                character.武器 = character.武器;
+            } else {
+                character.武器 = "无";
+            }
+            let i = 0;
+            let newWuxue = [];
+            req.body.wuxue.forEach(keepWuxue => {
+                if (keepWuxue) {
+                    newWuxue.push(character.武学[i]);
+                }
+                i++;
+            });
+            character.武学 = newWuxue;
+            try {
+                character.save().then((newCharacter) => {
+                    if (!newCharacter) {
+                        res.status(500).send({
+                            "message": "服务器错误，无法编辑角色。"
+                        });
+                        return;
+                    } else {
+                        res.status(200).send({ "message": `成功编辑角色${req.body.characterName}的属性。` });
+                    }
+                });
+            } catch (err) {
+                if (isMongoError(err)) {
+                    res.status(500).send({
+                        "message": "数据库错误。"
+                    });
+                } else {
+                    res.status(400).send({
+                        "message": "服务器错误"
+                    });
+                }
+            }
+        }
+    });
+});
+
+
 // Set up the routes for the '/css', and '/js' static directories
 app.use("/css", express.static(path.join(__dirname, '/public/css')));
 app.use("/js", express.static(path.join(__dirname, '/public/js')));

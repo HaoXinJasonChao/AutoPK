@@ -616,16 +616,32 @@
                 搜索后可以在下面的表格进行编辑。
                 <h2>编辑角色</h2>
                 <form id='editCharacterForm'>
+                    <h3>属性</h3>
+                    <label for="editCharacterName">角色名</label>
                     <input id='editCharacterName' type="text" placeholder="角色名">
+                    <label for="editCharacterUpperBand">波段上限</label>
                     <input id='editCharacterUpperBand' type="text" placeholder="波段上限">
+                    <label for="editCharacterLowerBand">波段下限</label>
                     <input id='editCharacterLowerBand' type="text" placeholder="波段下限">
+                    <label for="editCharacterPower">功力</label>
                     <input id='editCharacterPower' type="text" placeholder="功力">
+                    <label for="editCharacterBandBonus">附加波段</label>
                     <input id='editCharacterBandBonus' type="text" placeholder="附加波段">
+                    <label for="editCharacterDMGBonus">附加伤害</label>
                     <input id='editCharacterDMGBonus' type="text" placeholder="附加伤害">
+                    <label for="editCharacterDMGReduction">减伤</label>
                     <input id='editCharacterDMGReduction' type="text" placeholder="减伤">
+                    <label for="editCharacterCritChance">会心几率</label>
                     <input id='editCharacterCritChance' type="text" placeholder="会心几率">
+                    <label for="editCharacterCritMultiplier">会心伤害（倍数）</label>
                     <input id='editCharacterCritMultiplier' type="text" placeholder="会心伤害（倍数）">
+                    <label for="editCharacterDodgeChance">闪避率</label>
                     <input id='editCharacterDodgeChance' type="text" placeholder="闪避率">
+                    <br> 勾选/反勾选下面的选项来让角色失去武器/武学/心法
+                    <h3>武器</h3>
+                    <div id="editCharacterWeaponDiv"></div>
+                    <h3>武学</h3>
+                    <div id="editCharacterWuxueDiv"></div>
                     <input type="submit" value="编辑角色">
                 </form>
             </div>
@@ -668,8 +684,8 @@
             <br>
             <div class="box">
                 <h2>搜索武学</h2>
-                <form id="searchWeaponForm">
-                    <input id="searchWeaponName" type="text" placeholder="武学名">
+                <form id="searchWuxueForm">
+                    <input id="searchWuxueName" type="text" placeholder="武学名">
                     <input type="submit" value="搜索武学">
                 </form>
                 搜索后可以在下面的表格进行编辑。
