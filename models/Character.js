@@ -60,6 +60,24 @@ const CharacterSchema = new mongoose.Schema({
         required: true,
         unique: false,
         trim: true
+    },
+    "武器": {
+        type: String,
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "武学": {
+        type: [String],
+        required: false,
+        unique: false,
+        trim: true
+    },
+    "心法": {
+        type: [String],
+        required: false,
+        unique: false,
+        trim: true
     }
 });
 

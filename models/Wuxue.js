@@ -1,43 +1,6 @@
 const mongoose = require('mongoose');
 
-const WuxueSchema = new mongoose.Schema({
-    "武学名": {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
-    },
-    "自身效果": {
-        type: WuxueSelfEffectSchema,
-        required: true,
-        unique: false
-    },
-    "敌人效果": {
-        type: WuxueEnemyEffectSchema,
-        required: true,
-        unique: false
-    },
-    "下回合自身效果": {
-        type: WuxueNextRoundEffectSchema,
-        required: true,
-        unique: false
-    },
-    "下回合敌人效果": {
-        type: WuxueNextRoundEnemyEffectSchema,
-        required: true,
-        unique: false
-    },
-    "敌人持续效果": {
-        type: WuxuePermaEnemyEffectSchema,
-        required: true,
-        unique: false
-    },
-    "特殊攻击模式": {
-        type: WuxueSpecialAttackModeSchema,
-        required: true,
-        unique: false
-    }
-});
+
 
 
 const WuxueSelfEffectSchema = new mongoose.Schema({
@@ -333,8 +296,79 @@ const WuxueSpecialAttackModeSchema = new mongoose.Schema({
         trim: true
     }
 });
+const WuxueSchema = new mongoose.Schema({
+    "武学名": {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    "自身效果": {
+        type: WuxueSelfEffectSchema,
+        required: true,
+        unique: false
+    },
+    "敌人效果": {
+        type: WuxueEnemyEffectSchema,
+        required: true,
+        unique: false
+    },
+    "下回合自身效果": {
+        type: WuxueNextRoundEffectSchema,
+        required: true,
+        unique: false
+    },
+    "下回合敌人效果": {
+        type: WuxueNextRoundEnemyEffectSchema,
+        required: true,
+        unique: false
+    },
+    "敌人持续效果": {
+        type: WuxuePermaEnemyEffectSchema,
+        required: true,
+        unique: false
+    },
+    "特殊攻击模式": {
+        type: WuxueSpecialAttackModeSchema,
+        required: true,
+        unique: false
+    }
+});
 
+WuxueSchema.statics.findByName = async function(wuxueName) {
+    const Wuxue = this;
+    try {
+        const wuxue = await Wuxue.findOne({ "武学名": wuxueName });
+        if (!wuxue) {
+            return false;
+        } else {
+            return wuxue;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 const Wuxue = mongoose.model("Wuxue", WuxueSchema);
+const WuxueSelfEffect = mongoose.model("WuxueSelfEffect",
+    WuxueSelfEffectSchema);
+const WuxueEnemyEffect = mongoose.model("WuxueEnemyEffect",
+    WuxueEnemyEffectSchema);
+const WuxueNextRoundEffect = mongoose.model("WuxueNextRoundEffect",
+    WuxueNextRoundEffectSchema);
+const WuxueNextRoundEnemyEffect = mongoose.model("WuxueNextRoundEnemyEffect",
+    WuxueNextRoundEnemyEffectSchema);
+const WuxuePermaEnemyEffect = mongoose.model("WuxuePermaEnemyEffect",
+    WuxuePermaEnemyEffectSchema);
+const WuxueSpecialAttackMode = mongoose.model("WuxueSpecialAttackMode",
+    WuxueSpecialAttackModeSchema)
 
-module.exports = { Wuxue };
+module.exports = {
+    Wuxue,
+    WuxueSelfEffect,
+    WuxueEnemyEffect,
+    WuxueNextRoundEffect,
+    WuxueNextRoundEnemyEffect,
+    WuxuePermaEnemyEffect,
+    WuxueSpecialAttackMode
+};

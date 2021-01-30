@@ -1,25 +1,5 @@
 const mongoose = require('mongoose');
 
-const WeaponSchema = new mongoose.Schema({
-    "武器名": {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
-    },
-    "自身效果": {
-        type: WeaponSelfEffectSchema,
-        required: true,
-        unique: false
-    },
-    "敌人效果": {
-        type: WeaponEnemyEffectSchema,
-        required: true,
-        unique: false
-    }
-});
-
-
 const WeaponSelfEffectSchema = new mongoose.Schema({
     "波段上限": {
         type: Number,
@@ -122,6 +102,41 @@ const WeaponEnemyEffectSchema = new mongoose.Schema({
     }
 });
 
-const Weapon = mongoose.model("Weapon", WeaponSchema);
+const WeaponSchema = new mongoose.Schema({
+    "武器名": {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    "自身效果": {
+        type: WeaponSelfEffectSchema,
+        required: true,
+        unique: false
+    },
+    "敌人效果": {
+        type: WeaponEnemyEffectSchema,
+        required: true,
+        unique: false
+    }
+});
 
-module.exports = { Weapon };
+WeaponSchema.statics.findByName = async function(weaponName) {
+    const Weapon = this;
+    try {
+        const weapon = await Weapon.findOne({ "武器名": weaponName });
+        if (!weapon) {
+            return false;
+        } else {
+            return weapon;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const Weapon = mongoose.model("Weapon", WeaponSchema);
+const WeaponSelfEffect = mongoose.model("WeaponSelfEffect", WeaponSelfEffectSchema);
+const WeaponEnemyEffect = mongoose.model("WeaponEnemyEffect", WeaponEnemyEffectSchema);
+
+module.exports = { Weapon, WeaponSelfEffect, WeaponEnemyEffect };

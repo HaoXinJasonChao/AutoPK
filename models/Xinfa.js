@@ -1,23 +1,5 @@
 const mongoose = require('mongoose');
 
-const XinfaSchema = new mongoose.Schema({
-    "心法名": {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
-    },
-    "自身效果": {
-        type: XinfaSelfEffectSchema,
-        required: true,
-        unique: false
-    },
-    "敌人效果": {
-        type: XinfaEnemyEffectSchema,
-        required: true,
-        unique: false
-    }
-});
 
 
 const XinfaSelfEffectSchema = new mongoose.Schema({
@@ -128,6 +110,41 @@ const XinfaEnemyEffectSchema = new mongoose.Schema({
     }
 });
 
-const Xinfa = mongoose.model("Xinfa", XinfaSchema);
+const XinfaSchema = new mongoose.Schema({
+    "心法名": {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    "自身效果": {
+        type: XinfaSelfEffectSchema,
+        required: true,
+        unique: false
+    },
+    "敌人效果": {
+        type: XinfaEnemyEffectSchema,
+        required: true,
+        unique: false
+    }
+});
 
-module.exports = { Xinfa };
+XinfaSchema.statics.findByName = async function(xinfaName) {
+    const Xinfa = this;
+    try {
+        const xinfa = await Xinfa.findOne({ "心法名": xinfa });
+        if (!xinfa) {
+            return false;
+        } else {
+            return xinfa;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
+const Xinfa = mongoose.model("Xinfa", XinfaSchema);
+const XinfaSelfEffect = mongoose.model("XinfaSelfEffect", XinfaSelfEffectSchema);
+const XinfaEnemyEffect = mongoose.model("XinfaEnemyEffect", XinfaEnemyEffectSchema);
+
+
+module.exports = { Xinfa, XinfaSelfEffect, XinfaEnemyEffect };
