@@ -514,6 +514,82 @@ app.post('/editCharacter', mongoChecker, async(req, res) => {
 });
 
 
+// Search for a weapon
+app.post('/searchWeapon', mongoChecker, async(req, res) => {
+    const 武器名 = req.body.武器名;
+    Weapon.findByName(武器名).then((武器) => {
+        if (!武器) {
+            res.status(200).send({
+                "武器": false
+            });
+            return;
+        } else {
+            res.status(200).send({
+                "武器": 武器
+            });
+        }
+    });
+});
+
+
+// edit a weapon
+app.post('/editWeapon', mongoChecker, async(req, res) => {
+    const 原武器名 = req.body.原武器名;
+    Weapon.findByName(原武器名).then((weapon) => {
+        if (!weapon) {
+            res.status(200).send({
+                "message": "武器不存在，可能已被删除或改名，请确认搜索武器名是正确的。"
+            });
+            return;
+        } else {
+            weapon.武器名 = req.body.武器名;
+            const 自身效果 = req.body.自身效果;
+            weapon.自身效果.波段上限 = 自身效果.波段上限;
+            weapon.自身效果.波段下限 = 自身效果.波段下限;
+            weapon.自身效果.功力 = 自身效果.功力;
+            weapon.自身效果.附加伤害 = 自身效果.附加伤害;
+            weapon.自身效果.减伤 = 自身效果.减伤;
+            weapon.自身效果.会心几率 = 自身效果.会心几率;
+            weapon.自身效果.会心伤害 = 自身效果.会心伤害;
+            weapon.自身效果.闪避率 = 自身效果.闪避率;
+            weapon.自身效果.吸血 = 自身效果.吸血;
+            weapon.自身效果.吸血比例 = 自身效果.吸血比例;
+            const 敌人效果 = req.body.敌人效果;
+            weapon.敌人效果.减对方波段上限 = 敌人效果.减对方波段上限;
+            weapon.敌人效果.减对方波段下限 = 敌人效果.减对方波段下限;
+            weapon.敌人效果.减对方功力 = 敌人效果.减对方功力;
+            weapon.敌人效果.减对方附加伤害 = 敌人效果.减对方附加伤害;
+            weapon.敌人效果.减对方减伤 = 敌人效果.减对方减伤;
+            weapon.敌人效果.减对方会心几率 = 敌人效果.减对方会心几率;
+            weapon.敌人效果.减对方会心伤害 = 敌人效果.减对方会心伤害;
+            weapon.敌人效果.减对方闪避率 = 敌人效果.减对方闪避率;
+            try {
+                weapon.save().then((newWeapon) => {
+                    if (!newWeapon) {
+                        res.status(500).send({
+                            "message": "服务器错误，无法编辑武器。"
+                        });
+                        return;
+                    } else {
+                        res.status(200).send({ "message": `成功编辑武器${req.body.原武器名}的属性。` });
+                    }
+                });
+            } catch (err) {
+                if (isMongoError(err)) {
+                    res.status(500).send({
+                        "message": "数据库错误。"
+                    });
+                } else {
+                    res.status(400).send({
+                        "message": "服务器错误"
+                    });
+                }
+            }
+        }
+    });
+});
+
+
 // Set up the routes for the '/css', and '/js' static directories
 app.use("/css", express.static(path.join(__dirname, '/public/css')));
 app.use("/js", express.static(path.join(__dirname, '/public/js')));

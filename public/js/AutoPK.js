@@ -276,7 +276,6 @@ document.getElementById('editCharacterForm').addEventListener('submit', function
         return;
     }
     const upperBand = getInt('editCharacterUpperBand');
-    log("upperband" + upperBand);
     const lowerBand = getInt('editCharacterLowerBand');
     const power = getInt('editCharacterPower');
     const bandBonus = getInt('editCharacterBandBonus');
@@ -310,6 +309,84 @@ document.getElementById('editCharacterForm').addEventListener('submit', function
     };
 
     fetchRequest("POST", '/editCharacter', newStat, (message) => {
+        alert(message.message);
+    });
+    return;
+});
+
+
+document.getElementById('searchWeaponForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const weaponName = getString('searchWeaponName');
+    fetchRequest('POST', '/searchWeapon', { '武器名': weaponName }, (data) => {
+        if (!data.武器) {
+            alert("武器不存在。");
+        } else {
+            const weapon = data.武器;
+            setValue('editWeaponName', weapon.武器名);
+            const selfEffect = weapon.自身效果;
+            setValue('editWeaponUpperBand', selfEffect.波段上限);
+            setValue('editWeaponLowerBand', selfEffect.波段下限);
+            setValue('editWeaponPowerBonus', selfEffect.功力);
+            setValue('editWeaponDMGBonus', selfEffect.附加伤害);
+            setValue('editWeaponDMGReduction', selfEffect.减伤);
+            setValue('editWeaponCritChance', selfEffect.会心几率);
+            setValue('editWeaponCritMultiplier', selfEffect.会心伤害);
+            setValue('editWeaponDodgeChance', selfEffect.闪避率);
+            setChecked('editWeaponLifeSteal', selfEffect.吸血);
+            setValue('editWeaponLifeStealPercent', selfEffect.吸血比例);
+            const enemyEffect = weapon.敌人效果;
+            setValue('editWeaponNegativeUpperBand', enemyEffect.减对方波段上限);
+            setValue('editWeaponNegativeLowerBand', enemyEffect.减对方波段下限);
+            setValue('editWeaponNegativePowerBonus', enemyEffect.减对方功力);
+            setValue('editWeaponNegativeDMGBonus', enemyEffect.减对方附加伤害);
+            setValue('editWeaponNegativeDMGReduction', enemyEffect.减对方减伤);
+            setValue('editWeaponNegativeCritChance', enemyEffect.减对方会心几率);
+            setValue('editWeaponNegativeCritMultiplier', enemyEffect.减对方会心伤害);
+            setValue('editWeaponNegativeDodgeChance', enemyEffect.减对方闪避率);
+        }
+    })
+});
+
+document.getElementById('editWeaponForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const originalWeaponName = getString('searchWeaponName');
+    const weaponName = getString('editWeaponName');
+    if (weaponName == "") {
+        alert("武器名空缺");
+        return;
+    }
+    const selfEffect = {
+        '波段上限': getInt('editWeaponUpperBand'),
+        '波段下限': getInt('editWeaponLowerBand'),
+        '功力': getInt('editWeaponPowerBonus'),
+        '附加伤害': getInt('editWeaponDMGBonus'),
+        '减伤': getInt('editWeaponDMGReduction'),
+        '会心几率': getFloat('editWeaponCritChance'),
+        '会心伤害': getFloat('editWeaponCritMultiplier'),
+        '闪避率': getFloat('editWeaponDodgeChance'),
+        '吸血': getBool('editWeaponLifeSteal'),
+        '吸血比例': getFloat('editWeaponLifeStealPercent')
+    };
+    const enemyEffect = {
+        '减对方波段上限': getInt('editWeaponNegativeUpperBand'),
+        '减对方波段下限': getInt('editWeaponNegativeLowerBand'),
+        '减对方功力': getInt('editWeaponNegativePowerBonus'),
+        '减对方附加伤害': getInt('editWeaponNegativeDMGBonus'),
+        '减对方减伤': getInt('editWeaponNegativeDMGReduction'),
+        '减对方会心几率': getFloat('editWeaponNegativeCritChance'),
+        '减对方会心伤害': getFloat('editWeaponNegativeCritMultiplier'),
+        '减对方闪避率': getFloat('editWeaponNegativeDodgeChance')
+    };
+
+    const newStat = {
+        '原武器名': originalWeaponName,
+        '武器名': weaponName,
+        '自身效果': selfEffect,
+        '敌人效果': enemyEffect
+    }
+
+    fetchRequest("POST", '/editWeapon', newStat, (message) => {
         alert(message.message);
     });
     return;
